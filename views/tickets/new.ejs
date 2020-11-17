@@ -23,7 +23,7 @@
             <select name="name" id="name">
                     <option value="">SELECT NAME</option>
                 <% for (let ros of roster){ %>
-                    <option value="<%= ros.name %>"><%= ros.name %></option>
+                    <option value="<%= ros.name %>"><%= ros.fullName %></option>
                 <% } %> 
             </select>
         </div>

@@ -41,10 +41,11 @@ let ids;
 
 // adding tickets
 app.get('/', async (req, res) => {
-    const roster = await Roster.find({})
+    const roster = await Roster.find({}).sort({fullName: 1})
     const tickets = await Ticket.find({})
     res.render('tickets/new', { roster, tickets });
     console.log(tickets[tickets.length - 1].ticketID + 1)
+
 })
 
 app.post('/tickets', upload.single('image'), async (req, res, next) => {
