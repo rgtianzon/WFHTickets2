@@ -9,6 +9,7 @@ const rosterSchema = new mongoose.Schema({
     password: String,
     manEmail: String,
     Account: String,
+    Position: String,
 }, { timestamps: { createdAt: 'created_at' } });
 
 const Roster = mongoose.model('Roster', rosterSchema);

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" enctype="multipart/form-data">
     <title>New Ticket</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <style>
         .hid {
             display: none;
@@ -18,58 +19,67 @@
 </head>
 <body>
     <h1>Submit a Ticket</h1>
-    <form action="/tickets" method="POST" enctype="multipart/form-data">
-        <div>
-            <select name="name" id="name">
-                    <option value="">SELECT NAME</option>
-                <% for (let ros of roster){ %>
-                    <option value="<%= ros.name %>"><%= ros.fullName %></option>
-                <% } %> 
-            </select>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4"></div>
+            <div class="col-md-4 col-sm-4">
+                <form action="/tickets" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <select name="name" id="name" class="form-control">
+                                <option value="">SELECT NAME</option>
+                            <% for (let ros of roster){ %>
+                                <option value="<%= ros.name %>"><%= ros.fullName %></option>
+                            <% } %> 
+                        </select>
+                    </div>
+                    <!-- <div>
+                        <input type="text" name="email" id="email" placeholder="Email">
+                    </div>
+                    <div>
+                        <input type="text" name="manEmail" id="manEmail" placeholder="Manager's Email">
+                    </div>
+                    <div>
+                        <input type="text" name="department" id="department" placeholder="Account">
+                    </div> -->
+                    <div class="form-group">
+                        <select name="queryType" id="queryType" class="form-control">
+                            <option value="">Select Query Type</option>
+                            <option value="Internet Outage">Internet Outage</option>
+                            <option value="Power Outage">Power Outage</option>
+                            <option value="Intermittent internet issue">Intermittent internet issue</option>
+                            <option value="Insufficient Data allocation">Insufficient Data allocation</option>
+                            <option value="PC/Hardware Issues (Monitor, keyboard and mouse)">PC/Hardware Issues (Monitor, keyboard and mouse)</option>
+                            <option value="Software Issues (Apps, Tools, Emails, etc.)">Software Issues (Apps, Tools, Emails, etc.)</option>
+                            <option value="Others (to be specified)" id="others">Others (to be specified)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="otherSpecify" class="hid form-control" id="otherSpecify" rows="10" cols="50" placeholder="Please Specify"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <select name="severity" class="form-control">
+                            <option value="">Select Severity</option>
+                            <option value="Critical - unable to work">Critical - unable to work</option>
+                            <option value="Severe - interfering with duties most of the time">Severe - interfering with duties most of the time</option>
+                            <option value="Moderate - interfering with duties occasionally">Moderate - interfering with duties occasionally</option>
+                            <option value="Low - no/minimal disruption">Low - no/minimal disruption</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="issueDiscription" placeholder="Add Necessary Description" rows="10" cols="50" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="image" id="" class="form-control-file">
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-primary mb-2">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 col-sm-4"></div>
         </div>
-        <div>
-            <input type="text" name="email" id="email" placeholder="Email">
-        </div>
-        <div>
-            <input type="text" name="manEmail" id="manEmail" placeholder="Manager's Email">
-        </div>
-        <div>
-            <input type="text" name="department" id="department" placeholder="Account">
-        </div>
-        <div>
-            <select name="queryType" id="queryType">
-                <option value="">Select Query Type</option>
-                <option value="Internet Outage">Internet Outage</option>
-                <option value="Power Outage">Power Outage</option>
-                <option value="Intermittent internet issue">Intermittent internet issue</option>
-                <option value="Insufficient Data allocation">Insufficient Data allocation</option>
-                <option value="PC/Hardware Issues (Monitor, keyboard and mouse)">PC/Hardware Issues (Monitor, keyboard and mouse)</option>
-                <option value="Software Issues (Apps, Tools, Emails, etc.)">Software Issues (Apps, Tools, Emails, etc.)</option>
-                <option value="Others (to be specified)" id="others">Others (to be specified)</option>
-            </select>
-        </div>
-        <div>
-            <textarea name="otherSpecify" class="hid" id="otherSpecify" rows="10" cols="50" placeholder="Please Specify"></textarea>
-        </div>
-        <div>
-            <select name="severity">
-                <option value="">Select Severity</option>
-                <option value="Critical - unable to work">Critical - unable to work</option>
-                <option value="Severe - interfering with duties most of the time">Severe - interfering with duties most of the time</option>
-                <option value="Moderate - interfering with duties occasionally">Moderate - interfering with duties occasionally</option>
-                <option value="Low - no/minimal disruption">Low - no/minimal disruption</option>
-            </select>
-        </div>
-        <div>
-            <textarea name="issueDiscription" placeholder="Add Necessary Description" rows="10" cols="50"></textarea>
-        </div>
-        <div>
-            <input type="file" name="image" id="">
-        </div>
-        <div>
-            <input type="submit">
-        </div>
-    </form>
+        
+    </div>
     <script>
         const queryType = document.querySelector('#queryType');
         const otherSpecify =  document.querySelector('#otherSpecify');

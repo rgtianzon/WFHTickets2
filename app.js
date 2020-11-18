@@ -44,7 +44,7 @@ app.get('/', async (req, res) => {
     const roster = await Roster.find({}).sort({fullName: 1})
     const tickets = await Ticket.find({})
     res.render('tickets/new', { roster, tickets });
-    console.log(tickets[tickets.length - 1].ticketID + 1)
+    // console.log(tickets[tickets.length - 1].ticketID + 1)
 
 })
 
@@ -70,7 +70,7 @@ app.get('/tickets/:id', async (req, res) => {
 
 //below are admin functions
 
-// add user
+// add user for rtianzon
 app.get('/adduser', (req, res) => {
     res.render('tickets/adduser');
 })
@@ -101,8 +101,12 @@ app.post('/admin', async (req, res) => {
     const user = await Roster.findOne({ email });
     const validPW = await bcrypt.compare(password, user.password);
     if (validPW) {
-        req.session.user_id = user._id;
-        res.redirect('/tickets');
+        if (user.Position === "Manager" || user.Position === "Developer") {
+            req.session.user_id = user._id;
+            res.redirect('/tickets');
+        } else {
+            res.send("ERROR");
+        }
     } else {
         res.send("ERROR");
     }
@@ -110,6 +114,7 @@ app.post('/admin', async (req, res) => {
 
 // Showing all tickets
 app.get('/tickets', async (req, res) => {
+
     if (!req.session.user_id) {
         res.redirect('/admin')
     } else {
