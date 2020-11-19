@@ -49,16 +49,28 @@ app.get('/', async (req, res) => {
 })
 
 app.post('/tickets', upload.single('image'), async (req, res, next) => {
-    const tickets = await Ticket.find({})
-    req.body.ticketID = tickets[tickets.length - 1].ticketID + 1
-    req.body.status = "Open"
-    req.body.image = req.file.path
-    const newTicket = new Ticket(req.body);
-    console.log(req.body, req.file.path);
-    await newTicket.save()
+    try {
+        const tickets = await Ticket.find({})
+        req.body.ticketID = tickets[tickets.length - 1].ticketID + 1
+        req.body.status = "Open"
+        req.body.image = req.file.path;
+        const newTicket = new Ticket(req.body);
+        console.log(req.body, req.file.path);
+        await newTicket.save()
         .then(() => {
             res.redirect(`/tickets/${newTicket._id}`)
         })
+    } catch {
+        const tickets = await Ticket.find({})
+        req.body.ticketID = tickets[tickets.length - 1].ticketID + 1
+        req.body.status = "Open"
+        const newTicket = new Ticket(req.body);
+        console.log(req.body);
+        await newTicket.save()
+            .then(() => {
+                res.redirect(`/tickets/${newTicket._id}`)
+            })
+    }
 })
 
 // Showing a ticket
